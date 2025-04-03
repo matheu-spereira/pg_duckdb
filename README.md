@@ -5,3 +5,46 @@ pg_duckdb é uma extensão do Postgres que incorpora o mecanismo de análise col
 
 # Estrutura
 ![image](https://github.com/user-attachments/assets/e4f02291-8c99-40c2-a2e0-555aca0b5272)
+
+
+# Configurando o banco para ler tabelas delta no minIO
+
+#### Instalando extensão delta
+```
+SELECT duckdb.install_extension('delta');
+```
+
+#### Lendo extensões instaladas
+```
+select * from  duckdb.extensions 
+```
+
+#### Inserindo secret
+```
+INSERT INTO duckdb.secrets
+(type, key_id, secret, session_token, region, endpoint, use_ssl, url_style)
+VALUES ('S3', 'id', 'secret', '', 'us-east-1', 'minio:9000', false, 'path');
+```
+
+#### Verifica Secret
+```
+select * from  duckdb.secrets
+```
+
+#### Lendo tabela delta do minio
+```
+SELECT count(*) FROM delta_scan('s3://bucket/pasta/pasta');
+```
+
+#### Criando View
+```
+CREATE VIEW duckdb.fat AS
+	SELECT r['col1'] as col1, 
+		     r['col2'] as col2, 
+	FROM delta_scan('s3://bucket/pasta/pasta') r;
+```
+
+#### Lendo view
+```
+select * from fat
+```
