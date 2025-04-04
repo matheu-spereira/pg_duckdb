@@ -6,6 +6,9 @@ pg_duckdb é uma extensão do Postgres que incorpora o mecanismo de análise col
 # Estrutura
 ![image](https://github.com/user-attachments/assets/e4f02291-8c99-40c2-a2e0-555aca0b5272)
 
+# BenchMark
+![image](https://github.com/user-attachments/assets/0b7f59b3-7446-4090-abe2-ec5a977a716e)
+
 
 # Configurando o banco para ler tabelas delta no minIO
 
