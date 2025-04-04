@@ -121,6 +121,20 @@ services:
     restart: always
     networks:
       - app_net
+
+  # paradedb:
+  #   image: paradedb/paradedb:latest
+  #   container_name: paradedb
+  #   environment:
+  #     - POSTGRES_USER=teste2
+  #     - POSTGRES_PASSWORD=teste2
+  #   volumes:
+  #     - paradedb_data:/var/lib/postgresql/data/
+  #   ports:
+  #     - "5400:5432"
+  #   restart: always
+  #   networks:
+  #     - app_net
       
 # Definição de volumes persistentes usados por vários contêineres
 volumes:
@@ -128,6 +142,7 @@ volumes:
   spark-jars:  # Volume compartilhado para jars eventos do Spark
   minio-data:  # Volume persistente para dados do MinIO
   pgduckdb_data:
+  paradedb_data:  # Volume para dados do PostgreSQL
 
 # Definição da rede para os contêineres se comunicarem
 networks:
