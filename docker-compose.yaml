@@ -113,7 +113,7 @@ services:
       - ${PORT:-5432}:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 85392491
+      POSTGRES_PASSWORD: postgres
     volumes:
       - pgduckdb_data:/var/lib/postgresql/data
       - ./docker/postgresql.conf:/etc/postgresql/postgresql.conf

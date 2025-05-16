@@ -24,15 +24,12 @@ select * from  duckdb.extensions
 
 #### Insere secret
 ```
-INSERT INTO duckdb.secrets
-(type, key_id, secret, session_token, region, endpoint, use_ssl, url_style)
-VALUES ('S3', 'id', 'secret', '', 'us-east-1', 'minio:9000', false, 'path');
+CREATE SERVER minio TYPE 's3' FOREIGN DATA WRAPPER duckdb;
+
+CREATE USER MAPPING FOR CURRENT_USER SERVER minio --troque current_user pelo usuário que precisa ter permissão a secret
+OPTIONS (KEY_ID 'id_minio', SECRET 'secret_minio', REGION 'us-east-1', ENDPOINT 'minio:9000', USE_SSL 'false', URL_STYLE 'path' );
 ```
 
-#### Verifica Secret
-```
-select * from  duckdb.secrets
-```
 
 #### Ler tabela delta do minio
 ```
@@ -43,7 +40,7 @@ SELECT count(*) FROM delta_scan('s3://bucket/pasta/pasta');
 ```
 CREATE VIEW duckdb.fat AS
 	SELECT r['col1'] as col1, 
-		     r['col2'] as col2, 
+		     r['col2'] as col2
 	FROM delta_scan('s3://bucket/pasta/pasta') r;
 ```
 
